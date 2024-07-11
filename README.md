@@ -47,8 +47,13 @@ we get information about the driver using  ```nvidia-smi```, stands for NVIDIA S
 please pay attention to the difference CUDA versions you might get when running ```nvcc --version``` or ```nvidia-smi```.
 in my case ```nvcc --version``` is ```cuda 11.2``` and my ```nvidia-smi``` is ```cuda 12.4```. 
 the nvidia-smi suppose to be equal or greater then the version reported in nvcc.
+This command should return True if CUDA is correctly set up with PyTorch.
+```
+python -c "import torch; print(torch.cuda.is_available())"
+```
 
 ### shoter explanation about xformers:
+xformers allows efficient running, with costomizable bulding blocks that not available on PyTorch, it contains it own CUDA kernels.
 we have to install xformers to use tune-a-video, but xformers works with pytorch 2.3.0 and tune-a-video needs torch 1.12.1.
 so we need to install xformers from source. 
 first install ninja, it makes the build much faster
@@ -59,7 +64,40 @@ and then install xformers (might take few minutes):
 ```
 pip install -v -U git+https://github.com/facebookresearch/xformers.git@main#egg=xformers
 ```
+verify installation
+```
+python -c "import xformers; print(xformers.__version__)"
+```
 for more valuable information regarding installing xformers with cuda12 please take a look at these issues:
 [https://github.com/facebookresearch/xformers/issues/842](https://github.com/facebookresearch/xformers/issues/842)
 [https://github.com/facebookresearch/xformers/issues/960](https://github.com/facebookresearch/xformers/issues/960)
 
+### shoter explanation about pretrained model installation:
+tune-a-video uses text2image pretrained model, you can download the stable diffusion models from Hugging Face, 
+Stable Diffusion v1 is a specific configuration of the model architecture that uses a downsampling-factor 8 autoencoder with an 860M UNet and CLIP ViT-L/14 text encoder for the diffusion model. The model was pretrained on 256x256 images and then finetuned on 512x512 images.
+I used Stable Diffusion v1-4. it was initialized with the weights of Stable Diffusion v1-2 and was fine-tuned.
+
+these .ckpt files might be too heavy for simple cloning, so we first need to install Git LFS. 
+git LFS, stand for Large File Storage, helps to handle files larger then 10MB. if you dont have it please download from [https://git-lfs.com/](https://git-lfs.com/),
+once downloaded install: 
+```
+git lfs install
+```
+at first i had issues to install it because of problems with running sudo, since i probably didnt have the super user elevated privileges, you can try 
+Installing a new package: `sudo apt-get install package_name`
+Updating the system: `sudo apt-get update && sudo apt-get upgrade`
+
+after you have git LFS you can download the Stable Diffusion checkpoints by running: 
+```
+git clone https://huggingface.co/CompVis/stable-diffusion-v1-4 checkpoints/CompVis/stable-diffusion-v1-4
+```
+please pay attention, without git LFS this command won't raise a failure but the checkpoint may not been downloaded and it can raise errors later so don't skip it. 
+
+### Training Tune-A-Video
+finally, after succesful installation we can fine-tune the text-to-image diffusion models for text-to-video generation, run this command,
+you can change the config file to your own dataset.
+the command ```accelerate launch [arguments] {training_script}``` launches a specified script on a distributed system with the right parameters. 
+```{training_script}```, in our case is the train_tuneavideo.py, is the script to be launched in parallel,  ```--confing_file CONFIG_FILE``` contains the default values in the launching script. more details [here](https://huggingface.co/docs/accelerate/package_reference/cli#accelerate-launch). 
+```
+accelerate launch train_tuneavideo.py --config="configs/man-skiing.yaml"
+```
