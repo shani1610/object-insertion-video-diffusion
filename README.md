@@ -5,6 +5,7 @@ This repository contains technical explanations relating to the investigation of
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
+- [Human Evaluation](#humanevaluation)
 - [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
@@ -15,6 +16,9 @@ the detailed installation guideline can be found [here](https://github.com/shani
 
 ## Usage
 Details on how to use the project.
+
+## Human Evaluation 
+the survey can be found in this [link](https://forms.gle/f3opfrCkXVRv7ASt9)
 
 ## Contributing
 Guidelines for contributing to the project.
