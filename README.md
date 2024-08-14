@@ -1,4 +1,4 @@
-# Investigating Object Insertion into a Video Using Diffusion model
+# Object Insertion into a Video Using Diffusion model
 
 This repository contains technical explanations relating to the investigation of using tuning methods based on the stable diffusion model to insert objects into human-object interaction videos.
 
