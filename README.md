@@ -11,14 +11,13 @@ This repository contains technical explanations relating to the investigation of
 - [Acknowledgements](#acknowledgements)
 
 ## Installation
-I struggled with the first installation for Tune-A-Video, so I wrote what I learned with a lot of details and explanations to help whoever wants to reproduce my results or use Tune-A-Video for other goals.
-the detailed installation guideline can be found [here](https://github.com/shani1610/object-insertion-video-diffusion/blob/main/tuneavideo_installation.md). I also included the conda list results mentioning all the packages in the working environment and their versions, you can find it [here](https://github.com/shani1610/object-insertion-video-diffusion/blob/main/conda_list.md).
+To reproduce my results or use Tune-A-Video for other goals, I wrote detailed installation guidelines that can be found [here](https://github.com/shani1610/object-insertion-video-diffusion/blob/main/tuneavideo_installation.md). I also included the conda list results mentioning all the packages in the working environment and their versions, you can find it [here](https://github.com/shani1610/object-insertion-video-diffusion/blob/main/conda_list.md).
 
 ## Usage
 Details on how to use the project.
 
 ## Human Evaluation 
-the survey can be found in this [link](https://forms.gle/f3opfrCkXVRv7ASt9)
+the survey can be found in this [link](https://forms.gle/f3opfrCkXVRv7ASt9) 
 
 ## Tree 
 ```
