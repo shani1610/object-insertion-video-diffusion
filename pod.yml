@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: israelov-video-editing    # `kubectl get pod` で表示される名前
+spec:
+  containers:
+  - name: israelov-video-editing    # 表示先が無い名前 haruka-container-1 など
+    image: "haruka0000/tutorial:anaconda"   # 使用するdocker image
+    volumeMounts:
+    - name: ws-file
+      mountPath: /home/israelov  # ws-fileをマウントするpath
+    resources:
+      limits:
+        nvidia.com/gpu: 1   # 使用するGPU枚数
+    command: ["sh", "-c", "tail -f /dev/null"]  # Pod生成後，すぐ実行されるコマンド
+    workingDir: /home/israelov   # Podの中に入ると最初にいる場所
+  volumes:
+  - name: ws-file
+    hostPath:
+      path: /nas_share/homes/DOMAIN=VAL/israelov    # ws-fileの実際のpath
+      type: Directory
+  restartPolicy: OnFailure
+  imagePullSecrets:
+  - name: val-israelov    # 承認情報設定時に作った設定名
+  nodeSelector:                     # 使用するGPUの設定．使用したいGPUのみを記入
+    #accelerator: nvidia-rtx-a5000            # x2 CUDA 11.8まで VRAM:24G
+    #accelerator: nvidia-titan-rtx            # x2 CUDA 11.8まで VRAM:24G
+    #accelerator: nvidia-geforce-rtx2080ti    # x6 CUDA 11.8まで  VRAM:12G
+    accelerator: nvidia-geforce-rtx4090     # x2 CUDA 11.8 まで  VRAM:24G
