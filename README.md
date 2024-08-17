@@ -16,6 +16,10 @@ To reproduce my results or use Tune-A-Video for other goals, I wrote detailed in
 ## Usage
 Details on how to use the project.
 
+![suitcase](https://github.com/user-attachments/assets/68341d42-e96a-435c-ad33-590b0640e413)
+
+
+
 ## Human Evaluation 
 the survey can be found in this [link](https://forms.gle/f3opfrCkXVRv7ASt9) 
 
